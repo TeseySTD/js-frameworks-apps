@@ -3,6 +3,17 @@ export interface Author {
     avatar: string | null;
 }
 
+export interface ArticleData {
+    id: number,
+    title: string,
+    category: string,
+    readTime: number,
+    date: Date,
+    snippet?: string,
+    content: string[],
+    author: Author
+}
+
 export class Article {
     id: number;
     title: string;
@@ -12,7 +23,7 @@ export class Article {
         return this._readTime + ' min';
     }
     private _date: Date;
-    get date () {
+    get date() {
         return `${this._date.getFullYear()}-${this._date.getMonth().toString().padStart(2, '0')}-${this._date.getDate().toString().padStart(2, '0')}`
     };
     snippet?: string;
@@ -29,16 +40,7 @@ export class Article {
             snippet,
             content,
             author
-        }: {
-            id: number,
-            title: string,
-            category: string,
-            readTime: number,
-            date: Date,
-            snippet: string,
-            content: string[],
-            author: Author
-        }
+        } : ArticleData
     ) {
         this.id = id;
         this.title = title;
@@ -48,6 +50,19 @@ export class Article {
         this.snippet = snippet;
         this.content = content;
         this.author = author;
+    }
 
+
+    public toData(): ArticleData {
+        return {
+            id: this.id,
+            title: this.title,
+            category: this.category,
+            readTime: this._readTime,
+            date: this._date,
+            snippet: this.snippet,
+            content: this.content,
+            author: this.author
+        }
     }
 }

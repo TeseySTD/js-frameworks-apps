@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { Article } from '@/shared/models/article.model';
-import { getArticles } from '../data/articles.data';
+import { Article, ArticleData } from '@/shared/models/article.model';
+import { getArticles, saveArticlesToStorage } from '../data/articles.data';
 
 @Injectable({
     providedIn: 'root'
@@ -43,5 +43,31 @@ export class ArticleStore {
         return computed(() =>
             this.state().find(a => a.id === numericId) || null
         );
+    } 
+    
+    public addArticle(data: Partial<ArticleData>) {
+        const newArticle = new Article({
+            ...data,
+            id: Date.now(),
+            date: new Date()
+        } as any);
+
+        const updated = [newArticle, ...this.state()];
+        this.state.set(updated);
+        saveArticlesToStorage(updated);
+    }
+
+    public updateArticle(id: number, data: Partial<ArticleData>) {
+        const updated = this.state().map(a =>
+            a.id === id ? new Article({ ...a.toData(), ...data }) : a
+        );
+        this.state.set(updated);
+        saveArticlesToStorage(updated);
+    }
+
+    public deleteArticle(id: number) {
+        const updated = this.state().filter(a => a.id !== id);
+        this.state.set(updated);
+        saveArticlesToStorage(updated);
     }
 }

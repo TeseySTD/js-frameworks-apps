@@ -2,7 +2,6 @@ import { Component, computed, inject, OnInit, Signal, signal } from '@angular/co
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Avatar } from '@/shared/ui/avatar/avatar';
 import { ArticleStore } from '@/core/state/article.store';
-import { Article as ArticleModel } from '@/shared/models/article.model';
 import { Loader } from "@/shared/ui/loader/loader";
 
 @Component({

@@ -3,7 +3,8 @@
 
 import { Article } from "@/shared/models/article.model";
 
-const articles: Article[] = [
+const STORAGE_KEY = 'angular_blog_articles';
+const DEFAULT_ARTICLES: Article[] = [
     new Article({
         id: 1,
         title: 'What does .NET 10 mean for developers?',
@@ -132,17 +133,65 @@ const articles: Article[] = [
     })
 ];
 
+export const saveArticlesToStorage = (articles: Article[]): void => {
+    if (typeof localStorage === 'undefined') {
+        return;
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
+};
+
+const loadArticlesFromStorage = (): Article[] => {
+    if (typeof localStorage === 'undefined') {
+        return DEFAULT_ARTICLES;
+    }
+    const storedData = localStorage.getItem(STORAGE_KEY);
+    
+    if (!storedData) {
+        saveArticlesToStorage(DEFAULT_ARTICLES);
+        return DEFAULT_ARTICLES;
+    }
+
+    try {
+        const parsed = JSON.parse(storedData);
+        return parsed.map((item: any) => new Article({
+            ...item,
+            date: new Date(item.date) 
+        }));
+    } catch (e) {
+        console.error("Failed to parse articles from storage", e);
+        return DEFAULT_ARTICLES;
+    }
+};
+
+let articlesCache: Article[] = loadArticlesFromStorage();
+
 export const getArticles = (): Promise<Article[]> => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(articles);
+            articlesCache = loadArticlesFromStorage();
+            resolve(articlesCache);
         }, 500);
     });
 };
+
 export const getTopArticles = (): Promise<Article[]> => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(articles.slice(0, 3));
+            articlesCache = loadArticlesFromStorage();
+            resolve(articlesCache.slice(0, 3));
         }, 500);
     });
+};
+
+export const addArticle = async (newArticleData: any): Promise<Article> => {
+    const current = loadArticlesFromStorage();
+    const article = new Article({
+        ...newArticleData,
+        id: current.length + 1,
+        date: new Date()
+    });
+    
+    const updated = [article, ...current];
+    saveArticlesToStorage(updated);
+    return article;
 };
