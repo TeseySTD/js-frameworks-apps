@@ -2,7 +2,7 @@
     
     <header class="mb-12 md:mb-16 text-center md:text-left">
         <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Latest <span class="bg-clip-text text-transparent  bg-linear-to-br from-[#db82f1] to-[#a8008f]">Insights</span>
+            Latest <span class="bg-clip-text text-transparent bg-linear-to-br from-[#db82f1] to-[#a8008f]">Insights</span>
         </h1>
         <p class="text-lg text-gray-400 max-w-2xl">
             Discover our most recent articles, tutorials, and thoughts on software architecture, .NET ecosystem, and backend development.
@@ -10,11 +10,10 @@
     </header>
 
     @if (isLoading()) {
-        <div class="flex flex-col items-center justify-center py-20 space-y-4">
-            <div class="w-10 h-10 border-4 border-gray-700 border-t-[#dd0031] rounded-full animate-spin"></div>
-            <p class="text-gray-400 font-medium">Loading articles...</p>
+        <div class="flex flex-col items-center justify-center py-24 space-y-4">
+            <ui-loader/>
         </div>
-    } 
+    }
     @else {
         
         @if (articles().length > 0) {

@@ -1,27 +1,30 @@
-import { Component, inject, OnInit, Signal, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, Signal, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Avatar } from '@/shared/ui/avatar/avatar';
 import { ArticleStore } from '@/core/state/article.store';
 import { Article as ArticleModel } from '@/shared/models/article.model';
+import { Loader } from "@/shared/ui/loader/loader";
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [RouterLink, Avatar],
+  imports: [RouterLink, Avatar, Loader],
   templateUrl: './article.html'
 })
 export class Article implements OnInit {
   private route = inject(ActivatedRoute);
   private store = inject(ArticleStore);
-  article: Signal<ArticleModel | null> = signal(null);
+  
+  isLoading = this.store.isLoading;
+
+  article = computed(() => {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (!id) return null;
+    
+    return this.store.getArticleById(+id)();
+  });
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-
     this.store.loadArticles();
-
-    if (id) {
-      this.article = this.store.getArticleById(+id);
-    }
   }
 }
