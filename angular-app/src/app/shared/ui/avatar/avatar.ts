@@ -16,27 +16,35 @@ export class Avatar {
 
     constructor() {
         effect(() => {
-            if (this.src()) {
+            const currentSrc = this.src();
+
+            if (!currentSrc) {
+                this.isLoading.set(false);
+                return;
+            }
+
+            // Create a detached Image object to check the browser cache
+            const img = new Image();
+            img.src = currentSrc;
+
+            if (img.complete) {
+                this.isLoading.set(false);
+                
+                // If naturalWidth is 0, the cached image is actually broken
+                this.isError.set(img.naturalWidth === 0);
+            } else {
                 this.isLoading.set(true);
                 this.isError.set(false);
-            } else {
-                setTimeout(() => {
-                    this.isLoading.set(false);
-                }, 150);
             }
         });
     }
 
     onLoad() {
-        setTimeout(() => {
-            this.isLoading.set(false);
-        }, 150);
+        this.isLoading.set(false);
     }
 
     onError() {
-        setTimeout(() => {
-            this.isLoading.set(false);
-            this.isError.set(true);
-        }, 150);
+        this.isLoading.set(false);
+        this.isError.set(true);
     }
 }

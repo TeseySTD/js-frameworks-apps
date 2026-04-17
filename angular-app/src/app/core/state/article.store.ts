@@ -58,7 +58,7 @@ export class ArticleStore {
                     snippet: 'How to properly organize organizeize ports and adapters, so that your code does not turn into a "big ball of mud".',
                     author: {
                         name: 'Nick Chapsas',
-                        avatar: 'https://avatars.githubusercontent.com/u/8199968?v=4'
+                        avatar: 'https://avatars.githubusercontent.com/u/errorlink?v=4'
                     },
                     content: [
                         "We will explore the key changes in the .NET ecosystem and how they affect the performance of microservices.",
