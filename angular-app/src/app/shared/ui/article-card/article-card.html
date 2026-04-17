@@ -1,0 +1,45 @@
+<a [routerLink]="['/articles', article().id]">
+    <article
+        class="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer">
+        <div class="h-48 bg-linear-to-tr from-gray-100 to-gray-200 relative">
+            <div class="absolute inset-0 flex items-center justify-center text-gray-400 font-bold text-lg">
+                {{ article().category }}
+            </div>
+            <span
+                class="absolute top-4 left-4 bg-[#dd0031] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                {{ article().category }}
+            </span>
+        </div>
+
+        <div class="p-8">
+            <div class="flex items-center text-gray-400 text-xs mb-4 font-medium uppercase tracking-wider">
+                {{ article().date }}
+                <span class="mx-2">•</span>
+                <span>{{ article().readTime }} read</span>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-[#dd0031] transition-colors leading-tight">
+                {{ article().title }}
+            </h3>
+
+            <p class="text-gray-500 text-sm leading-relaxed mb-8 line-clamp-2">
+                {{ article().snippet }}
+            </p>
+
+            <div class="flex items-center justify-between pt-6 border-t border-gray-100">
+                <div class="flex items-center space-x-3">
+                    <ui-avatar [src]="article().author.avatar" class="w-8 h-8" />
+                    <span class="text-gray-700 font-bold text-xs uppercase">{{article().author.name}}</span>
+                </div>
+
+                <div class="text-[#dd0031] opacity-0 group-hover:opacity-100 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </article>
+</a>

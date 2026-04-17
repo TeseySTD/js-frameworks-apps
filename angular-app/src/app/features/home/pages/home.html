@@ -1,0 +1,28 @@
+<section class="animate-fade-in">
+    <div class="flex justify-between items-end mb-12">
+        <div>
+            <h2 class="text-3xl font-bold text-white mb-2">Latest Articles</h2>
+            <div class="h-1 w-20 bg-white/30 rounded-full"></div>
+        </div>
+        <a routerLink="/articles" class="text-white/70 hover:text-white transition text-sm font-medium">
+            Show all →
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @if(isLoading()){
+        <div class="col-span-full text-center py-20 text-white/50">
+            <p class="text-xl italic">Loading...</p>
+        </div>
+        }
+        @else {
+            @for (article of articles(); track article.id) {
+                <ui-article-card [article]="article" />
+            } @empty {
+            <div class="col-span-full text-center py-20 text-white/50">
+                <p class="text-xl italic">No articles...</p>
+            </div>
+            }
+        }
+    </div>
+</section>
