@@ -1,79 +1,109 @@
 <div class="max-w-7xl mx-auto py-12 px-6 grid grid-cols-1 lg:grid-cols-3 gap-12">
-    
-    <div class="lg:col-span-1 bg-gray-900 border border-gray-800 p-6 rounded-xl h-fit">
-        <h2 class="text-2xl font-bold text-white mb-6">
-            {{ editMode() ? 'Edit Article' : 'Create Article' }}
-        </h2>
+  <div class="lg:col-span-1 bg-gray-900 border border-gray-800 p-6 rounded-xl h-fit">
+    <h2 class="text-2xl font-bold text-white mb-6">
+      {{ editMode() ? 'Edit Article' : 'Create Article' }}
+    </h2>
 
-        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
-            
-            <div>
-                <label class="block text-sm font-medium text-gray-400 mb-1">Title</label>
-                <input formControlName="title" type="text" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]">
-            </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-400 mb-1">Title</label>
+        <input
+          formControlName="title"
+          type="text"
+          class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]" />
+      </div>
 
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-1">Category</label>
-                    <input formControlName="category" type="text" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-1">Read Time (min)</label>
-                    <input formControlName="readTime" type="number" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]">
-                </div>
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-400 mb-1">Snippet</label>
-                <textarea formControlName="snippet" rows="2" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]"></textarea>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 border-t border-gray-800 pt-4 mt-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-1">Author Name</label>
-                    <input formControlName="authorName" type="text" class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-1">Author Avatar URL</label>
-                    <input formControlName="authorAvatar" type="text" placeholder="https://..." class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]">
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 pt-4 mt-4">
-                <label class="block text-sm font-medium text-gray-400 mb-1">Content (Markdown / Paragraphs)</label>
-                <textarea formControlName="content" rows="6" placeholder="Separate paragraphs with a blank line..." class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]"></textarea>
-            </div>
-
-            <div class="flex space-x-3 pt-4">
-                <button type="submit" [disabled]="form.invalid" 
-                        class="flex-1 bg-[#dd0031] hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                    {{ editMode() ? 'Save Changes' : 'Publish' }}
-                </button>
-                @if (editMode()) {
-                    <button type="button" (click)="resetForm()" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors">
-                        Cancel
-                    </button>
-                }
-            </div>
-        </form>
-    </div>
-
-    <div class="lg:col-span-2">
-        <h2 class="text-2xl font-bold text-white mb-6">Manage Articles</h2>
-        
-        <div class="space-y-4">
-            @if(store.isLoading()) {
-                <ui-loader/>
-            }
-            @else{
-                <div class="flex flex-col gap-4">
-                    @for (article of store.articles(); track article.id) {
-                        <admin-article-item [article]="article" (onEdit)="onEdit($event)" (onDelete)="onDelete($event)"/>
-                    } @empty {
-                        <p class="text-gray-500">No articles found.</p>
-                    }
-                </div>
-            }
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-400 mb-1">Category</label>
+          <input
+            formControlName="category"
+            type="text"
+            class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]" />
         </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-400 mb-1">Read Time (min)</label>
+          <input
+            formControlName="readTime"
+            type="number"
+            class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]" />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-400 mb-1">Snippet</label>
+        <textarea
+          formControlName="snippet"
+          rows="2"
+          class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]"></textarea>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 border-t border-gray-800 pt-4 mt-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-400 mb-1">Author Name</label>
+          <input
+            formControlName="authorName"
+            type="text"
+            class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-400 mb-1">Author Avatar URL</label>
+          <input
+            formControlName="authorAvatar"
+            type="text"
+            placeholder="https://..."
+            class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]" />
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 pt-4 mt-4">
+        <label class="block text-sm font-medium text-gray-400 mb-1">
+          Content (Markdown / Paragraphs)
+        </label>
+        <textarea
+          formControlName="content"
+          rows="6"
+          placeholder="Separate paragraphs with a blank line..."
+          class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-[#dd0031]"></textarea>
+      </div>
+
+      <div class="flex space-x-3 pt-4">
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="flex-1 bg-[#dd0031] hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          {{ editMode() ? 'Save Changes' : 'Publish' }}
+        </button>
+        @if (editMode()) {
+          <button
+            type="button"
+            (click)="resetForm()"
+            class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors">
+            Cancel
+          </button>
+        }
+      </div>
+    </form>
+  </div>
+
+  <div class="lg:col-span-2">
+    <h2 class="text-2xl font-bold text-white mb-6">Manage Articles</h2>
+
+    <div class="space-y-4">
+      @if (store.isLoading()) {
+        <ui-loader />
+      } @else {
+        <div class="flex flex-col gap-4">
+          @for (article of store.articles(); track article.id) {
+            <admin-article-item
+              [article]="article"
+              (onEdit)="onEdit($event)"
+              (onDelete)="onDelete($event)" />
+          } @empty {
+            <p class="text-gray-500">No articles found.</p>
+          }
+        </div>
+      }
     </div>
+  </div>
 </div>

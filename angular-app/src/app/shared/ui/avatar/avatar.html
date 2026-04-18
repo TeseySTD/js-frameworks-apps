@@ -1,19 +1,29 @@
-<div class="relative w-8 h-8 rounded-full overflow-hidden shrink-0"
-    style="-webkit-mask-image: -webkit-radial-gradient(white, black); mask-image: radial-gradient(white, black);">
+<div
+  class="relative w-8 h-8 rounded-full overflow-hidden shrink-0"
+  style="
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    mask-image: radial-gradient(white, black);
+  ">
+  <div
+    class="absolute inset-0 bg-linear-to-br from-[#5f00a8] to-[#dd0031] transition-opacity duration-500 scale-105 z-0"
+    [class.opacity-0]="src() && !isError() && !isLoading()"
+    [class.opacity-100]="!src() || isError()"></div>
 
-    <div class="absolute inset-0 bg-linear-to-br from-[#5f00a8] to-[#dd0031] transition-opacity duration-500 scale-105 z-0"
-        [class.opacity-0]="src() && !isError() && !isLoading()" [class.opacity-100]="!src() || isError()">
-    </div>
+  @if (src()) {
+    <img
+      [src]="src()"
+      (load)="onLoad()"
+      (error)="onError()"
+      class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 scale-105 z-10"
+      [class.opacity-100]="!isLoading() && !isError()"
+      [class.opacity-0]="isLoading() || isError()"
+      alt="avatar" />
+  }
 
-    @if (src()) {
-    <img [src]="src()" (load)="onLoad()" (error)="onError()"
-        class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 scale-105 z-10"
-        [class.opacity-100]="!isLoading() && !isError()" [class.opacity-0]="isLoading() || isError()" alt="avatar">
-    }
-
-    <div class="absolute inset-0 z-20 transition-opacity duration-1000 ease-in-out scale-105 pointer-events-none"
-        [class.opacity-100]="isLoading()" [class.opacity-0]="!isLoading()">
-
-        <div class="w-full h-full bg-gray-200 animate-pulse"></div>
-    </div>
+  <div
+    class="absolute inset-0 z-20 transition-opacity duration-1000 ease-in-out scale-105 pointer-events-none"
+    [class.opacity-100]="isLoading()"
+    [class.opacity-0]="!isLoading()">
+    <div class="w-full h-full bg-gray-200 animate-pulse"></div>
+  </div>
 </div>

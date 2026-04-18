@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArticleCard } from '@/shared/ui/article-card/article-card';
 import { ArticleStore } from '@/core/state/article.store';
-import { Loader } from "@/shared/ui/loader/loader";
+import { Loader } from '@/shared/ui/loader/loader';
 
 @Component({
   selector: 'app-home',

@@ -2,14 +2,14 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ArticleStore } from '@/core/state/article.store';
 import { ArticleData } from '@/shared/models/article.model';
-import { ArticleItem } from "@/features/admin/components/article-item/article-item";
-import { Loader } from "@/shared/ui/loader/loader";
+import { ArticleItem } from '@/features/admin/components/article-item/article-item';
+import { Loader } from '@/shared/ui/loader/loader';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
   imports: [ReactiveFormsModule, ArticleItem, Loader],
-  templateUrl: './admin.html'
+  templateUrl: './admin.html',
 })
 export class Admin implements OnInit {
   public store = inject(ArticleStore);
@@ -26,7 +26,7 @@ export class Admin implements OnInit {
     readTime: [5, [Validators.required, Validators.min(1)]],
     authorName: ['', Validators.required],
     authorAvatar: [''],
-    content: ['', Validators.required]
+    content: ['', Validators.required],
   });
 
   ngOnInit() {
@@ -44,7 +44,7 @@ export class Admin implements OnInit {
       snippet: val.snippet,
       readTime: val.readTime,
       author: { name: val.authorName, avatar: val.authorAvatar },
-      content: val.content.split('\n').filter(p => p.trim() !== '')
+      content: val.content.split('\n').filter((p) => p.trim() !== ''),
     };
 
     if (this.editMode() && this.currentId()) {
@@ -67,7 +67,7 @@ export class Admin implements OnInit {
       readTime: article.readTime,
       authorName: article.author.name,
       authorAvatar: article.author.avatar ?? undefined,
-      content: article.content.join('\n\n') 
+      content: article.content.join('\n\n'),
     });
   }
 

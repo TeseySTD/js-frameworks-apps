@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ArticleStore } from '@/core/state/article.store';
-import { ArticleCard } from "@/shared/ui/article-card/article-card";
-import { Loader } from "@/shared/ui/loader/loader";
+import { ArticleCard } from '@/shared/ui/article-card/article-card';
+import { Loader } from '@/shared/ui/loader/loader';
 
 @Component({
   selector: 'app-article-list',
