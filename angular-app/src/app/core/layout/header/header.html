@@ -1,0 +1,108 @@
+<nav class="sticky top-0 z-50 backdrop-blur-md bg-white/10 border-b border-white/20">
+  <div class="px-6 py-4 flex justify-between items-center max-w-7xl mx-auto">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
+        <span class="text-[#dd0031] font-bold text-xl">A</span>
+      </div>
+      <span class="text-white font-bold text-xl tracking-tight">Angular Developer Reader</span>
+    </div>
+
+    <div class="hidden md:flex space-x-8 text-white/90 font-medium">
+      <a
+        routerLink="/"
+        routerLinkActive="text-white after:!scale-x-100"
+        [routerLinkActiveOptions]="{exact: true}"
+        class="relative py-1 hover:text-white transition-colors duration-300
+               after:content-[''] after:absolute after:left-0 after:-bottom-1
+               after:w-full after:h-0.75 after:bg-white
+               after:scale-x-0 after:origin-left after:transition-transform after:duration-300">
+        Home
+      </a>
+
+      <a
+        routerLink="/articles"
+        routerLinkActive="text-white after:!scale-x-100"
+        class="relative py-1 hover:text-white transition-colors duration-300
+               after:content-[''] after:absolute after:left-0 after:-bottom-1
+               after:w-full after:h-0.75 after:bg-white
+               after:scale-x-0 after:origin-left after:transition-transform after:duration-300">
+        Articles
+      </a>
+
+      <a 
+        routerLink="/admin"
+        routerLinkActive="text-white after:!scale-x-100"
+        class="relative py-1 hover:text-white transition-colors duration-300
+               after:content-[''] after:absolute after:left-0 after:-bottom-1
+               after:w-full after:h-0.75 after:bg-white
+               after:scale-x-0 after:origin-left after:transition-transform after:duration-300">
+        Admin
+      </a>
+    </div>
+
+    <button
+      (click)="toggleMenu()"
+      class="md:hidden text-white hover:text-gray-300 focus:outline-none"
+      aria-label="Toggle mobile menu">
+      @if (!isMenuOpen()) {
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-7 w-7"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      } @else {
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-7 w-7"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      }
+    </button>
+  </div>
+
+  @if (isMenuOpen()) {
+    <div
+      class="md:hidden absolute top-full left-0 w-full bg-gray-900/95 backdrop-blur-xl border-b border-white/10 shadow-2xl">
+      <div class="flex flex-col px-6 py-6 text-center text-white/90 font-medium gap-2">
+        <a
+          routerLink="/"
+          routerLinkActive="text-[#dd0031] bg-white/5"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+          class="block py-3 rounded-lg hover:bg-white/10 transition">
+          Home
+        </a>
+
+        <a
+          routerLink="/articles"
+          routerLinkActive="text-[#dd0031] bg-white/5"
+          (click)="closeMenu()"
+          class="block py-3 rounded-lg hover:bg-white/10 transition">
+          Articles
+        </a>
+
+        <a
+          routerLink="/admin"
+          routerLinkActive="text-[#dd0031] bg-white/5"
+          (click)="closeMenu()"
+          class="block py-3 rounded-lg hover:bg-white/10 transition">
+          Admin
+        </a>
+      </div>
+    </div>
+  }
+</nav>
