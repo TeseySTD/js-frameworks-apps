@@ -1,12 +1,14 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ArticleStore } from '@/core/state/article.store';
-import { Article, ArticleData } from '@/shared/models/article.model';
+import { ArticleData } from '@/shared/models/article.model';
+import { ArticleItem } from "@/features/admin/components/article-item/article-item";
+import { Loader } from "@/shared/ui/loader/loader";
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ArticleItem, Loader],
   templateUrl: './admin.html'
 })
 export class Admin implements OnInit {
@@ -15,6 +17,7 @@ export class Admin implements OnInit {
 
   public editMode = signal(false);
   public currentId = signal<number | null>(null);
+  public isLoading = this.store.isLoading;
 
   public form = this.fb.nonNullable.group({
     title: ['', Validators.required],
@@ -53,7 +56,7 @@ export class Admin implements OnInit {
     this.resetForm();
   }
 
-  public edit(article: ArticleData) {
+  public onEdit(article: ArticleData) {
     this.editMode.set(true);
     this.currentId.set(article.id);
 
@@ -68,7 +71,7 @@ export class Admin implements OnInit {
     });
   }
 
-  public delete(id: number) {
+  public onDelete(id: number) {
     if (confirm('Are you sure you want to delete this article?')) {
       this.store.deleteArticle(id);
       if (this.currentId() === id) this.resetForm();

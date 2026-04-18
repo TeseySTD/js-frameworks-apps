@@ -1,7 +1,7 @@
 
 // This file contains the data used in the app, it mocks real db
 
-import { Article } from "@/shared/models/article.model";
+import { Article, ArticleData } from "@/shared/models/article.model";
 
 const STORAGE_KEY = 'angular_blog_articles';
 const DEFAULT_ARTICLES: Article[] = [
@@ -137,7 +137,7 @@ export const saveArticlesToStorage = (articles: Article[]): void => {
     if (typeof localStorage === 'undefined') {
         return;
     }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(articles.map((a) => a.toData())));
 };
 
 const loadArticlesFromStorage = (): Article[] => {
@@ -153,9 +153,9 @@ const loadArticlesFromStorage = (): Article[] => {
 
     try {
         const parsed = JSON.parse(storedData);
-        return parsed.map((item: any) => new Article({
+        return parsed.map((item: ArticleData) => new Article({
             ...item,
-            date: new Date(item.date) 
+            date: new Date(item.date)
         }));
     } catch (e) {
         console.error("Failed to parse articles from storage", e);
@@ -183,7 +183,7 @@ export const getTopArticles = (): Promise<Article[]> => {
     });
 };
 
-export const addArticle = async (newArticleData: any): Promise<Article> => {
+export const addArticle = async (newArticleData: ArticleData): Promise<Article> => {
     const current = loadArticlesFromStorage();
     const article = new Article({
         ...newArticleData,
