@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { spring } from 'svelte/motion';
-	import { COLS, keyMap, ROWS, SHAPES} from '$lib/gameData';
+	import { COLS, keyMap, ROWS, SHAPES } from '$lib/gameData';
 	import GameHeader from '$lib/components/GameHeader.svelte';
 	import GameBoard from '$lib/components/GameBoard.svelte';
 	import ScoreCard from '$lib/components/ScoreCard.svelte';
@@ -102,38 +102,45 @@
 	});
 
 	function handleKeydown(e: KeyboardEvent) {
-		if (keyMap.Pause.some(k => k.codeKey === e.key)) {
+		if (keyMap.Pause.some((k) => k.codeKey === e.key)) {
 			togglePause();
 			return;
 		}
 		if (gameOver || isPaused) return;
 
-		if (keyMap.Left.some(k => k.codeKey === e.key)) move({ x: -1, y: 0 });
-		if (keyMap.Right.some(k => k.codeKey === e.key)) move({ x: 1, y: 0 });
-		if (keyMap.Down.some(k => k.codeKey === e.key)) move({ x: 0, y: 1 });
-		if (keyMap.Rotate.some(k => k.codeKey === e.key)) rotate();
+		if (keyMap.Left.some((k) => k.codeKey === e.key)) move({ x: -1, y: 0 });
+		if (keyMap.Right.some((k) => k.codeKey === e.key)) move({ x: 1, y: 0 });
+		if (keyMap.Down.some((k) => k.codeKey === e.key)) move({ x: 0, y: 1 });
+		if (keyMap.Rotate.some((k) => k.codeKey === e.key)) rotate();
 	}
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
 
 <main
-	class="flex min-h-screen flex-col items-center justify-center bg-[#0a0a0a] bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-gray-900 to-black p-4 font-sans text-white"
+	class="flex min-h-screen flex-col items-center justify-center bg-[#0a0a0a] p-4 font-sans text-white selection:bg-[#ff3e00]/30"
 >
+	<div
+		class="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_50%_-20%,#ff3e0015,transparent_50%)]"
+	></div>
+
 	<GameHeader />
 
-	<div class="flex h-[80vh] items-start gap-8 lg:gap-12">
+	<div class="relative z-10 flex h-[75vh] items-start gap-8 lg:gap-16">
 		<GameBoard {board} {currentPiece} {isPaused} {gameOver} {score} onTogglePause={togglePause} />
 
-		<div class="flex h-full flex-col gap-4">
+		<div class="flex h-full w-64 flex-col gap-6">
 			<ScoreCard {score} />
 			<GameGuide />
 
 			<button
 				onclick={togglePause}
-				class="w-full rounded-xl border border-[#dd0031]/30 py-4 font-bold tracking-widest text-[#dd0031] uppercase transition hover:bg-[#dd0031]/10"
+				class="group flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 py-4 text-xs font-bold tracking-[0.2em] text-gray-400 uppercase transition-all hover:border-[#ff3e00]/50 hover:text-[#ff3e00]"
 			>
-				{isPaused ? 'Resume' : 'Pause'}
+				<span
+					class="h-1.5 w-1.5 rounded-full {isPaused ? 'animate-pulse bg-[#ff3e00]' : 'bg-gray-600'}"
+				></span>
+				{isPaused ? 'Resume Game' : 'Pause Game'}
 			</button>
 		</div>
 	</div>
@@ -141,7 +148,15 @@
 
 <style>
 	:global(body) {
+		background-color: #0a0a0a;
+		color: white;
 		overflow: hidden;
-		background: black;
+	}
+
+	/* Smooth transition for theme colors */
+	:global(*) {
+		transition:
+			border-color 0.2s ease,
+			background-color 0.2s ease;
 	}
 </style>

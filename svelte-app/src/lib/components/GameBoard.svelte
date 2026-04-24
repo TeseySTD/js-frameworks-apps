@@ -12,11 +12,11 @@
 </script>
 
 <div
-	class="relative aspect-10/20 h-full overflow-hidden rounded-xl border-4 border-gray-800 bg-gray-950 shadow-[0_0_80px_rgba(221,0,49,0.15)]"
+	class="relative aspect-10/20 h-full overflow-hidden rounded-2xl border border-white/10 bg-[#0f0f0f] shadow-[0_0_100px_rgba(255,62,0,0.07)]"
 >
-	<div class="pointer-events-none absolute inset-0 grid grid-cols-10 grid-rows-20 opacity-20">
+	<div class="pointer-events-none absolute inset-0 grid grid-cols-10 grid-rows-20 opacity-10">
 		{#each Array(200) as _}
-			<div class="border-[0.5px] border-gray-700"></div>
+			<div class="border-[0.5px] border-white/20"></div>
 		{/each}
 	</div>
 
@@ -46,31 +46,26 @@
 	{/each}
 
 	{#if isPaused}
-		<div
-			class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60 backdrop-blur-md"
-		>
-			<h2 class="mb-4 text-4xl font-black tracking-widest text-white uppercase">Paused</h2>
+		<div class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#0a0a0ab0] backdrop-blur-sm">
+			<h2 class="mb-6 text-2xl font-bold tracking-[0.2em] text-white uppercase">Paused</h2>
 			<button
 				onclick={onTogglePause}
-				class="rounded-full border border-white/20 bg-white/10 px-8 py-3 font-bold text-white transition hover:bg-white/20"
+				class="group relative flex items-center justify-center overflow-hidden rounded-full bg-white px-8 py-3 font-bold text-black transition-all hover:scale-105"
 			>
-				RESUME
+				<span class="relative z-10">RESUME</span>
 			</button>
 		</div>
 	{/if}
 
 	{#if gameOver}
-		<div
-			class="absolute inset-0 z-30 flex flex-col items-center justify-center bg-black/90 text-center backdrop-blur-xl"
-		>
-			<h2 class="mb-4 text-3xl font-bold text-[#dd0031]">GAME OVER</h2>
-			<p class="text-sm text-gray-400">Final Score</p>
-			<p class="mb-6 font-mono text-4xl font-bold">{score}</p>
+		<div class="absolute inset-0 z-30 flex flex-col items-center justify-center bg-black/95 text-center backdrop-blur-2xl">
+			<h2 class="mb-2 text-4xl font-black text-white">FINISH.</h2>
+			<p class="mb-8 font-mono text-xl text-[#ff3e00]">{score}</p>
 			<button
 				onclick={() => location.reload()}
-				class="rounded-lg bg-linear-to-r from-[#dd0031] to-[#ff3e00] px-10 py-3 font-bold text-white transition hover:scale-105 active:scale-95"
+				class="rounded-full bg-gradient-to-r from-[#ff3e00] to-[#e0234e] px-10 py-3 text-sm font-bold text-white shadow-lg shadow-[#ff3e00]/20 transition-all hover:scale-105 active:scale-95"
 			>
-				RESTART
+				TRY AGAIN
 			</button>
 		</div>
 	{/if}
