@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { spring } from 'svelte/motion';
-	import { COLS, ROWS, SHAPES, type Piece, type Point } from '$lib/types';
+	import { COLS, keyMap, ROWS, SHAPES} from '$lib/gameData';
 	import GameHeader from '$lib/components/GameHeader.svelte';
 	import GameBoard from '$lib/components/GameBoard.svelte';
 	import ScoreCard from '$lib/components/ScoreCard.svelte';
 	import GameGuide from '$lib/components/GameGuide.svelte';
+	import type { Piece, Point } from '$lib/types';
 
 	// Game State
 	let board = $state(Array.from({ length: ROWS }, () => Array(COLS).fill(0)));
@@ -101,16 +102,16 @@
 	});
 
 	function handleKeydown(e: KeyboardEvent) {
-		if (e.key === 'p' || e.key === 'Escape') {
+		if (keyMap.Pause.some(k => k.codeKey === e.key)) {
 			togglePause();
 			return;
 		}
 		if (gameOver || isPaused) return;
 
-		if (e.key === 'ArrowLeft') move({ x: -1, y: 0 });
-		if (e.key === 'ArrowRight') move({ x: 1, y: 0 });
-		if (e.key === 'ArrowDown') move({ x: 0, y: 1 });
-		if (e.key === 'ArrowUp') rotate();
+		if (keyMap.Left.some(k => k.codeKey === e.key)) move({ x: -1, y: 0 });
+		if (keyMap.Right.some(k => k.codeKey === e.key)) move({ x: 1, y: 0 });
+		if (keyMap.Down.some(k => k.codeKey === e.key)) move({ x: 0, y: 1 });
+		if (keyMap.Rotate.some(k => k.codeKey === e.key)) rotate();
 	}
 </script>
 
