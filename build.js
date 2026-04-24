@@ -24,6 +24,9 @@ fs.mkdirSync(DIST_DIR);
 
 try {
     console.log(pc.magentaBright('\n--- Angular building... ---'));
+    const angularLock = path.join(ANGULAR_DIR, 'package-lock.json');
+    if (fs.existsSync(angularLock)) fs.rmSync(angularLock, { force: true });
+
     runCommand('npm install', ANGULAR_DIR);
     runCommand(`npx ng build --configuration production --base-href "/${REPO_NAME}/angular/"`, ANGULAR_DIR);
 
