@@ -1,1 +1,16 @@
 @import 'tailwindcss';
+
+@layer base {
+    body {
+        background-color: #0a0a0a;
+        color: white;
+        overflow: hidden;
+    }
+
+    /* Smooth transition for theme colors */
+    * {
+        transition:
+            border-color 0.2s ease,
+            background-color 0.2s ease;
+    }
+}

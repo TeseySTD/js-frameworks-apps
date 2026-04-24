@@ -7,10 +7,12 @@
 	import ScoreCard from '$lib/components/ScoreCard.svelte';
 	import GameGuide from '$lib/components/GameGuide.svelte';
 	import type { Piece, Point } from '$lib/types';
+	import { statsService } from '$lib/services/stats.svelte';
 
 	// Game State
 	let board = $state(Array.from({ length: ROWS }, () => Array(COLS).fill(0)));
 	let score = $state(0);
+	let totalLines = $state(0);
 	let gameOver = $state(false);
 	let isPaused = $state(false);
 
@@ -52,6 +54,7 @@
 		currentPiece = spawnPiece();
 		if (collide(currentPiece, board)) {
 			gameOver = true;
+			statsService.addRecord(score, totalLines);
 		}
 	}
 
@@ -65,7 +68,10 @@
 		while (board.length < ROWS) {
 			board.unshift(Array(COLS).fill(0));
 		}
-		if (linesCleared > 0) score += linesCleared * 100;
+		if (linesCleared > 0) {
+			score += linesCleared * 100;
+			totalLines += linesCleared;
+		}
 	}
 
 	function move(dir: Point) {
@@ -142,21 +148,24 @@
 				></span>
 				{isPaused ? 'Resume Game' : 'Pause Game'}
 			</button>
+			<a
+				aria-label="Statistics page link"
+				href="/stats"
+				class="group flex w-full items-center justify-center gap-3 rounded-xl border border-transparent bg-white/2 py-4 text-xs font-bold tracking-[0.2em] text-gray-500 uppercase transition-all hover:border-white/5 hover:bg-white/4 hover:text-white"
+			>
+				Hall of Fame
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-4 w-4 text-gray-600 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#ff3e00]"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2.5"
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+				</svg>
+			</a>
 		</div>
 	</div>
 </main>
 
-<style>
-	:global(body) {
-		background-color: #0a0a0a;
-		color: white;
-		overflow: hidden;
-	}
-
-	/* Smooth transition for theme colors */
-	:global(*) {
-		transition:
-			border-color 0.2s ease,
-			background-color 0.2s ease;
-	}
-</style>

@@ -63,7 +63,7 @@
 			<p class="mb-8 font-mono text-xl text-[#ff3e00]">{score}</p>
 			<button
 				onclick={() => location.reload()}
-				class="rounded-full bg-gradient-to-r from-[#ff3e00] to-[#e0234e] px-10 py-3 text-sm font-bold text-white shadow-lg shadow-[#ff3e00]/20 transition-all hover:scale-105 active:scale-95"
+				class="rounded-full bg-linear-to-r from-[#ff3e00] to-[#e0234e] px-10 py-3 text-sm font-bold text-white shadow-lg shadow-[#ff3e00]/20 transition-all hover:scale-105 active:scale-95"
 			>
 				TRY AGAIN
 			</button>
