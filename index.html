@@ -7,131 +7,252 @@
     <title>JS Frameworks Sandbox</title>
     <style>
         :root {
-            --bg-color: #0a0a0a;
+            --bg-color: #050505;
             --text-color: #ffffff;
             --angular-color: #dd0031;
             --svelte-color: #ff3e00;
         }
 
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        body {
             font-family: system-ui, -apple-system, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #050505 70%);
             min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 4rem;
+            width: 100%;
+            gap: 4rem;
         }
 
-        .header h1 {
-            font-size: 3rem;
+        .text-section {
+            flex: 1;
+            max-width: 550px;
+            z-index: 10;
+        }
+
+        .eyebrow {
+            color: #888;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 5vw, 4.5rem);
             font-weight: 900;
             letter-spacing: -0.05em;
-            margin: 0;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #a1a1aa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .header p {
-            color: #888;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
+        .description {
+            color: #a1a1aa;
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
         }
 
-        .cards {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 280px;
-            height: 320px;
-            border-radius: 20px;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.02);
+        .logos-section {
+            flex: 1;
             position: relative;
-            overflow: hidden;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.05);
+        .logo-link {
+            position: absolute;
+            display: block;
+            width: 180px;
+            height: auto;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
 
-        .card.angular:hover {
-            border-color: var(--angular-color);
-            box-shadow: 0 10px 40px rgba(221, 0, 49, 0.2);
+        .logo-link.angular {
+            filter: drop-shadow(0 0 25px rgba(221, 0, 49, 0.4));
         }
 
-        .card.svelte:hover {
-            border-color: var(--svelte-color);
-            box-shadow: 0 10px 40px rgba(255, 62, 0, 0.2);
+        .logo-link.svelte {
+            filter: drop-shadow(0 0 25px rgba(255, 62, 0, 0.4));
         }
 
-        .card-icon {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
+        .logo-link svg {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
-        .card.angular .card-icon {
-            color: var(--angular-color);
+        .logo-link.angular {
+            top: 15%;
+            left: 10%;
+            transform: rotate(-12deg);
         }
 
-        .card.svelte .card-icon {
-            color: var(--svelte-color);
+        .logo-link.svelte {
+            bottom: 15%;
+            right: 10%;
+            transform: rotate(15deg);
         }
 
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
+        .logo-link.angular:hover {
+            transform: scale(1.15) rotate(0deg) translateY(-10px);
+            filter: drop-shadow(0 0 60px var(--angular-color));
+            z-index: 20;
         }
 
-        .card-desc {
-            color: #888;
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 0 1.5rem;
+        .logo-link.svelte:hover {
+            transform: scale(1.15) rotate(0deg) translateY(-10px);
+            filter: drop-shadow(0 0 60px var(--svelte-color));
+            z-index: 20;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                align-items: flex-start;
+            }
+
+            .container {
+                flex-direction: column;
+                text-align: center;
+                padding: 4rem 2rem;
+                gap: 2rem;
+            }
+
+            .text-section {
+                margin-bottom: 2rem;
+            }
+
+            .eyebrow {
+                margin-bottom: 1rem;
+            }
+
+            .logos-section {
+                width: 100%;
+                height: 350px;
+            }
+
+            .logo-link {
+                width: 140px;
+            }
+
+            .logo-link.angular {
+                top: 10%;
+                left: 5%;
+            }
+
+            .logo-link.svelte {
+                bottom: 10%;
+                right: 5%;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <h1>Frameworks Sandbox</h1>
-        <p>Choose your engine</p>
-    </div>
+    <div class="container">
+        <div class="text-section">
+            <span class="eyebrow">Select Framework</span>
+            <h1>Frameworks<br>Sandbox.</h1>
+            <p class="description">
+                Welcome to the unified workspace. Choose your engine to explore the capabilities of modern front-end
+                architectures.
+            </p>
+        </div>
 
-    <div class="cards">
-        <a href="./angular/" class="card angular">
-            <div class="card-icon">A</div>
-            <div class="card-title">Angular 19</div>
-            <div class="card-desc">Component-driven architecture with robust tooling.</div>
-        </a>
+        <div class="logos-section">
 
-        <a href="./svelte/" class="card svelte">
-            <div class="card-icon">S</div>
-            <div class="card-title">Svelte 5</div>
-            <div class="card-desc">Pure DOM manipulation powered by Runes.</div>
-        </a>
+            <a href="./angular/" class="logo-link angular" aria-label="Go to Angular Sandbox">
+                <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <g clip-path="url(#prefix__clip0_9_19)">
+                        <mask id="prefix__a" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="14" y="0"
+                            width="484" height="512">
+                            <path d="M14 0h484v512H14V0z" fill="#fff" />
+                        </mask>
+                        <g mask="url(#prefix__a)">
+                            <mask id="prefix__b" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="14" y="0"
+                                width="484" height="512">
+                                <path d="M14 0h484v512H14V0z" fill="#fff" />
+                            </mask>
+                            <g mask="url(#prefix__b)">
+                                <path
+                                    d="M496 86l-18 272L312 0l184 86zM380 438l-124 72-126-72 24-62h202l24 62zM256 136l64 160H190l66-160zM32 358L14 86 198 0 32 358z"
+                                    fill="url(#prefix__paint0_linear_9_19)" />
+                                <path
+                                    d="M496 86l-18 272L312 0l184 86zM380 438l-124 72-126-72 24-62h202l24 62zM256 136l64 160H190l66-160zM32 358L14 86 198 0 32 358z"
+                                    fill="url(#prefix__paint1_linear_9_19)" />
+                            </g>
+                        </g>
+                    </g>
+                    <defs>
+                        <linearGradient id="prefix__paint0_linear_9_19" x1="120.4" y1="463.8" x2="504" y2="281.4"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#E40035" />
+                            <stop offset=".2" stop-color="#F60A48" />
+                            <stop offset=".4" stop-color="#F20755" />
+                            <stop offset=".5" stop-color="#DC087D" />
+                            <stop offset=".7" stop-color="#9717E7" />
+                            <stop offset="1" stop-color="#6C00F5" />
+                        </linearGradient>
+                        <linearGradient id="prefix__paint1_linear_9_19" x1="103" y1="61.4" x2="354" y2="348"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FF31D9" />
+                            <stop offset="1" stop-color="#FF5BE1" stop-opacity="0" />
+                        </linearGradient>
+                        <clipPath id="prefix__clip0_9_19">
+                            <path fill="#fff" transform="translate(14)" d="M0 0h484v512H0z" />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </a>
+
+            <a href="./svelte/" class="logo-link svelte" aria-label="Go to Svelte Sandbox">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 102.25 122.88">
+                    <defs>
+                        <style>
+                            .a {
+                                fill: #ff3e00;
+                            }
+
+                            .b {
+                                fill: #fff;
+                            }
+                        </style>
+                    </defs>
+                    <title>svelte</title>
+                    <path class="a"
+                        d="M95.73,16.26C84.32-.07,61.78-4.91,45.49,5.47L16.87,23.71A32.83,32.83,0,0,0,2,45.69a35.13,35.13,0,0,0-.55,6.14,34.69,34.69,0,0,0,4,16.06A33,33,0,0,0,.54,80.16a35,35,0,0,0,6,26.46c11.41,16.33,34,21.17,50.24,10.79L85.37,99.17a32.76,32.76,0,0,0,14.83-22,34.08,34.08,0,0,0,.55-6.13A34.72,34.72,0,0,0,96.8,55a33,33,0,0,0,4.91-12.26,36,36,0,0,0,.54-6.13,34.93,34.93,0,0,0-6.52-20.33Zm0,0Z" />
+                    <path class="b"
+                        d="M42.69,108.16a22.94,22.94,0,0,1-5.72.73A22.7,22.7,0,0,1,18.3,99.11a21,21,0,0,1-3.92-12.23,21.6,21.6,0,0,1,.32-3.68,20.52,20.52,0,0,1,.69-2.67l.54-1.64L17.39,80a37.13,37.13,0,0,0,11.2,5.6l1.06.32-.1,1.06c0,.18,0,.37,0,.55a6.36,6.36,0,0,0,1.18,3.7,6.82,6.82,0,0,0,5.62,3,6.65,6.65,0,0,0,1.72-.22,6.28,6.28,0,0,0,1.76-.77L68.42,74.91a6,6,0,0,0,2.79-5.09A6.35,6.35,0,0,0,70,66.13a6.85,6.85,0,0,0-5.63-2.94,6.65,6.65,0,0,0-1.72.22,6,6,0,0,0-1.75.77L50,71.14a21.06,21.06,0,0,1-5.81,2.55,23.06,23.06,0,0,1-5.72.73A22.73,22.73,0,0,1,19.8,64.65a21.05,21.05,0,0,1-3.92-12.23,21.6,21.6,0,0,1,.32-3.68,19.82,19.82,0,0,1,8.92-13.23L53.74,17.28a21,21,0,0,1,5.81-2.56A23,23,0,0,1,65.27,14,22.74,22.74,0,0,1,84,23.76,21.05,21.05,0,0,1,87.87,36a21.72,21.72,0,0,1-.32,3.69,20.52,20.52,0,0,1-.69,2.67L86.32,44l-1.46-1.07a36.9,36.9,0,0,0-11.2-5.6L72.6,37l.1-1.06c0-.18,0-.37,0-.55a6.42,6.42,0,0,0-1.18-3.71,6.85,6.85,0,0,0-5.62-2.94A6.65,6.65,0,0,0,64.2,29a5.89,5.89,0,0,0-1.76.77L33.82,48a6,6,0,0,0-2.69,4A6.92,6.92,0,0,0,31,53.06a6.35,6.35,0,0,0,1.18,3.69,6.84,6.84,0,0,0,5.62,2.94,6.65,6.65,0,0,0,1.72-.22,6,6,0,0,0,1.76-.77l10.92-7a20.93,20.93,0,0,1,5.81-2.55,23,23,0,0,1,5.72-.73,22.74,22.74,0,0,1,18.68,9.77,21.05,21.05,0,0,1,3.92,12.23A20.64,20.64,0,0,1,86,74.14a19.78,19.78,0,0,1-8.92,13.23L48.51,105.6a21,21,0,0,1-5.82,2.56Zm0,0Z" />
+                </svg>
+            </a>
+
+        </div>
     </div>
 </body>
 
