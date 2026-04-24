@@ -1,0 +1,13 @@
+{
+  "name": "js-frameworks-sandbox",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Monorepo for Angular and Svelte applications",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "devDependencies": {
+    "picocolors": "^1.1.1"
+  }
+}

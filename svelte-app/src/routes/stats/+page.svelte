@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { statsService } from '$lib/services/stats.svelte';
+	import { resolve } from '$app/paths';
 	import { fly } from 'svelte/transition';
 </script>
 
 <div class="mx-auto max-w-4xl px-6 py-12">
 	<header class="mb-12">
 		<a
-			href="/"
+			href={resolve("/")}
 			class="text-xs font-bold tracking-[0.2em] text-[#ff3e00] uppercase transition hover:opacity-70"
 		>
 			← Back to Game

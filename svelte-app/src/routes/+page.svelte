@@ -8,6 +8,7 @@
 	import GameGuide from '$lib/components/GameGuide.svelte';
 	import type { Piece, Point } from '$lib/types';
 	import { statsService } from '$lib/services/stats.svelte';
+	import { resolve } from '$app/paths';
 
 	// Game State
 	let board = $state(Array.from({ length: ROWS }, () => Array(COLS).fill(0)));
@@ -150,7 +151,7 @@
 			</button>
 			<a
 				aria-label="Statistics page link"
-				href="/stats"
+				href={resolve("/stats")}
 				class="group flex w-full items-center justify-center gap-3 rounded-xl border border-transparent bg-white/2 py-4 text-xs font-bold tracking-[0.2em] text-gray-500 uppercase transition-all hover:border-white/5 hover:bg-white/4 hover:text-white"
 			>
 				Hall of Fame
@@ -168,4 +169,3 @@
 		</div>
 	</div>
 </main>
-
