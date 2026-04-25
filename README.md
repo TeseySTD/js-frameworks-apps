@@ -6,18 +6,24 @@ A monorepo showcasing modern frontend capabilities through specialized applicati
 
 The repository is structured as a framework "buffet." A centralized entry point (Vanilla HTML/CSS portal) allows users to choose their engine. Each sub-project is treated as an independent, fully-featured application deployed to its own sub-route.
 
+> [!NOTE]
+> In this project uses not just ui frameworks, but their metaframeworks (except angular that is fullstack by default).
+> Each app uses pre-render with hydration and client-side routing.
+
 ---
 
 ## 🅰️ Angular 19: Article Hub
 
-A robust, enterprise-grade application demonstrating the power of the new Angular reactivity model.
+**Essence:** A content management platform focused on structured data flow and clean architectural boundaries.
 
-### Key Features:
+**User Workflow:**
+Users browse a dynamic feed of articles, navigate to full-text reading views, and manage content via a dedicated administrative dashboard.
+
+### Key Features
 
 - **Signals-Based State:** Utilizing the latest Angular Signals for fine-grained reactivity and optimized change detection.
 - **Clean Architecture:** Structured using the "Core/Features/Shared" pattern for maximum maintainability.
-- **Vite & esbuild Engine:** Lightning-fast development and production builds, moving away from legacy Webpack constraints.
-- **Modular UI:** A library of reusable standalone components including custom loaders, avatars, and article cards.
+- **Pre-render with Routing:** Leveraging Angular Router for declarative routing and pre-rendering at build time.
 
 **Tech Stack:** Angular 19, TypeScript, TailwindCSS, Angular Router.
 
@@ -25,15 +31,17 @@ A robust, enterprise-grade application demonstrating the power of the new Angula
 
 ## 🟠 Svelte 5: Pure DOM Tetris
 
-A high-performance gaming engine built to stress-test the new **Svelte 5 Runes** and DOM-based rendering.
+**Essence:** A classic tetris arcade engine demonstrating the performance of direct DOM manipulation and Svelte's latest reactivity model.
 
-### Key Features:
+**User Workflow:**
+Players interact with a responsive grid that scales across devices. Scores are calculated in real-time and saved to a persistent "Hall of Fame" via local storage.
+
+### Key Features
 
 - **Runes Reactivity:** Powered by `$state`, `$derived`, and `$effect` for explicit and efficient data flow.
 - **Zero Virtual DOM:** Direct DOM manipulation ensures minimal overhead even with high-frequency updates (60fps gameplay).
 - **Svelte Motion:** Integrated spring physics for a "juicy" UI feel, especially in score animations and transitions.
-- **Mobile Responsive:** A hybrid layout that adapts from a sidebar-driven desktop view to a touch-optimized mobile experience.
-- **Persistent Stats:** A dedicated service using local storage to track "Hall of Fame" records across sessions.
+- **Pre-render with Routing:** Utilizing SvelteKit for serverless, client-side routing and pre-rendering at build time.
 
 **Tech Stack:** Svelte 5, SvelteKit, TypeScript, TailwindCSS, Svelte Motion.
 
