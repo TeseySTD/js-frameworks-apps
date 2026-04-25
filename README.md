@@ -7,8 +7,8 @@ A monorepo showcasing modern frontend capabilities through specialized applicati
 The repository is structured as a framework "buffet." A centralized entry point (Vanilla HTML/CSS portal) allows users to choose their engine. Each sub-project is treated as an independent, fully-featured application deployed to its own sub-route.
 
 > [!NOTE]
-> In this project uses not just ui frameworks, but their metaframeworks (except angular that is fullstack by default).
-> Each app uses pre-render with hydration and client-side routing.
+> This project uses not just UI frameworks, but their full metaframeworks (with the exception of Angular, which includes these features out-of-the-box).
+> Each app utilizes static pre-rendering, hydration, and client-side routing.
 
 ---
 
