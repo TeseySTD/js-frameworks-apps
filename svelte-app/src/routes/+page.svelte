@@ -125,47 +125,63 @@
 <svelte:window onkeydown={handleKeydown} />
 
 <main
-	class="flex min-h-screen flex-col items-center justify-center bg-[#0a0a0a] p-4 font-sans text-white selection:bg-[#ff3e00]/30"
+	class="flex h-screen w-full flex-col items-center justify-between bg-[#0a0a0a] p-4 py-6 font-sans text-white selection:bg-[#ff3e00]/30 lg:justify-center lg:py-4"
 >
 	<div
 		class="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_50%_-20%,#ff3e0015,transparent_50%)]"
 	></div>
 
-	<GameHeader />
+	<div class="mb-2 shrink-0 lg:mb-4">
+		<GameHeader />
+	</div>
 
-	<div class="relative z-10 flex h-[75vh] items-start gap-8 lg:gap-16">
-		<GameBoard {board} {currentPiece} {isPaused} {gameOver} {score} onTogglePause={togglePause} />
+	<div
+		class="relative z-10 flex min-h-0 w-full max-w-5xl flex-1 flex-col items-center gap-6 lg:h-[80vh] lg:flex-none lg:flex-row lg:items-start lg:justify-center lg:gap-16"
+	>
+		<div class="flex min-h-0 w-full flex-1 justify-center lg:h-full lg:w-auto lg:flex-none">
+			<GameBoard {board} {currentPiece} {isPaused} {gameOver} {score} onTogglePause={togglePause} />
+		</div>
 
-		<div class="flex h-full w-64 flex-col gap-6">
+		<div
+			class="flex w-full max-w-[320px] shrink-0 flex-col gap-4 lg:h-full lg:w-64 lg:max-w-none lg:gap-2"
+		>
 			<ScoreCard {score} />
-			<GameGuide />
 
-			<button
-				onclick={togglePause}
-				class="group flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 py-4 text-xs font-bold tracking-[0.2em] text-gray-400 uppercase transition-all hover:border-[#ff3e00]/50 hover:text-[#ff3e00]"
-			>
-				<span
-					class="h-1.5 w-1.5 rounded-full {isPaused ? 'animate-pulse bg-[#ff3e00]' : 'bg-gray-600'}"
-				></span>
-				{isPaused ? 'Resume Game' : 'Pause Game'}
-			</button>
-			<a
-				aria-label="Statistics page link"
-				href={resolve("/stats")}
-				class="group flex w-full items-center justify-center gap-3 rounded-xl border border-transparent bg-white/2 py-4 text-xs font-bold tracking-[0.2em] text-gray-500 uppercase transition-all hover:border-white/5 hover:bg-white/4 hover:text-white"
-			>
-				Hall of Fame
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-4 w-4 text-gray-600 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#ff3e00]"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					stroke-width="2.5"
+			<div class="hidden min-h-0 shrink lg:flex lg:flex-col lg:justify-center">
+				<GameGuide />
+			</div>
+
+			<div class="mt-auto flex w-full gap-3 lg:flex-col lg:gap-2">
+				<button
+					onclick={togglePause}
+					class="group flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 py-3.5 text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase transition-all hover:border-[#ff3e00]/50 hover:text-[#ff3e00] sm:text-xs lg:w-full lg:py-3"
 				>
-					<path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-				</svg>
-			</a>
+					<span
+						class="h-1.5 w-1.5 rounded-full {isPaused
+							? 'animate-pulse bg-[#ff3e00]'
+							: 'bg-gray-600'}"
+					></span>
+					{isPaused ? 'Resume Game' : 'Pause Game'}
+				</button>
+
+				<a
+					aria-label="Statistics page link"
+					href={resolve('/stats')}
+					class="group flex flex-1 items-center justify-center gap-2 rounded-xl border border-transparent bg-white/2 py-3.5 text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase transition-all hover:border-white/5 hover:bg-white/4 hover:text-white sm:text-xs lg:w-full lg:py-3"
+				>
+					Hall of Fame
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-3.5 w-3.5 text-gray transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#ff3e00] sm:h-4 sm:w-4"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						stroke-width="2.5"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+					</svg>
+				</a>
+			</div>
 		</div>
 	</div>
 </main>
